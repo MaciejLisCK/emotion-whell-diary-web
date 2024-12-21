@@ -1,5 +1,7 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
@@ -12,6 +14,8 @@ import { EmotionsState } from './emotions/emotions.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
+    provideToastr(),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore(
       [ EmotionsState ],
       withNgxsReduxDevtoolsPlugin(),

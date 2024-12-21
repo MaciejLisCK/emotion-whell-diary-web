@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { AddEmotionAction, DeleteEmotionAction } from './emotions.actions';
 import { compose, insertItem, patch, removeItem } from "@ngxs/store/operators"
+import { ToastrService } from 'ngx-toastr';
 
 
 export interface EmotionsStateModel {
@@ -22,6 +23,8 @@ export interface Emotion {
 })
 @Injectable()
 export class EmotionsState {
+  toastr = inject(ToastrService);
+
   @Selector()
   static getState(state: EmotionsStateModel) {
     return state;
@@ -40,6 +43,8 @@ export class EmotionsState {
         items: insertItem<Emotion>(emotion)
       })
     )
+
+    this.toastr.success('Dodano: ' + emotionName);
   }
 
   @Action(DeleteEmotionAction)
@@ -49,5 +54,7 @@ export class EmotionsState {
         items: removeItem<Emotion>((e) => e.id === emotion.id),
       })
     );
+
+    this.toastr.success('Usunięto: ' + emotion.name);
   }
 }
