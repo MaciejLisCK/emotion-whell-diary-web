@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-emotion-list',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './emotion-list.component.scss'
 })
 export class EmotionListComponent {
-
+  public emotions = input<string[]>();
 }

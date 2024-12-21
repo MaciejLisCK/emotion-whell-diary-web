@@ -12,7 +12,9 @@ import { EmotionListComponent } from './emotion-list/emotion-list.component';
 export class AppComponent {
   title = 'emotion-whell-diary-web';
 
+  emotions: string[] = [];
+
   onEmotionClicked(emotionName: string) {
-    console.log(emotionName);
+    this.emotions.push(emotionName);
   }
 }
