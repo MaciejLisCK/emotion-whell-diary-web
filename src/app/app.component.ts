@@ -10,12 +10,12 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'emotion-whell-diary-web';
 
-  emotionClicked(pointerEvent: PointerEvent) {
-    if (!pointerEvent?.target) {
+  emotionClicked(mouseEvent: MouseEvent) {
+    if (!mouseEvent?.target) {
       return;
     }
 
-    const areaElement = pointerEvent.target as HTMLAreaElement;
+    const areaElement = mouseEvent.target as HTMLAreaElement;
     const emotionName = areaElement.getAttribute('data-emotion-name');
 
     console.log(emotionName);
