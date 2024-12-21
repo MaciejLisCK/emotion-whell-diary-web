@@ -1,11 +1,17 @@
-import { Component, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EmotionsState, EmotionsStateModel } from '../emotions/emotions.state';
+import { Store } from '@ngxs/store';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-emotion-list',
-  imports: [],
+  imports: [ AsyncPipe, JsonPipe ],
   templateUrl: './emotion-list.component.html',
   styleUrl: './emotion-list.component.scss'
 })
 export class EmotionListComponent {
-  public emotions = input<string[]>();
+  store = inject(Store);
+
+  emotions$: Observable<EmotionsStateModel> = this.store.select(EmotionsState.getState);
 }

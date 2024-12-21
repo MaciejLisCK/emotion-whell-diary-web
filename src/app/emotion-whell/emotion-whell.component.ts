@@ -1,13 +1,15 @@
-import { Component, output, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { EmotionsAction } from '../emotions/emotions.actions';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-emotion-whell',
-  imports: [],
+  imports: [ ],
   templateUrl: './emotion-whell.component.html',
   styleUrl: './emotion-whell.component.scss'
 })
 export class EmotionWhellComponent {
-  emotionClicked = output<string>();
+  store = inject(Store);
 
   onImageAreaClicked(mouseEvent: MouseEvent) {
     if (!mouseEvent?.target)
@@ -19,6 +21,6 @@ export class EmotionWhellComponent {
     if (!emotionName)
       return;
 
-    this.emotionClicked.emit(emotionName);
+    this.store.dispatch(new EmotionsAction(emotionName));
   }
 }
