@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { EmotionsAction } from '../emotions/emotions.actions';
+import { AddEmotionAction } from '../emotions/emotions.actions';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -21,6 +21,6 @@ export class EmotionWhellComponent {
     if (!emotionName)
       return;
 
-    this.store.dispatch(new EmotionsAction(emotionName));
+    this.store.dispatch(new AddEmotionAction(emotionName));
   }
 }

@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmotionsState, EmotionsStateModel } from '../emotions/emotions.state';
+import { Emotion, EmotionsState, EmotionsStateModel } from '../emotions/emotions.state';
 import { Store } from '@ngxs/store';
 import { AsyncPipe, DatePipe } from '@angular/common';
+import { DeleteEmotionAction } from '../emotions/emotions.actions';
 
 @Component({
   selector: 'app-emotion-list',
@@ -12,6 +13,10 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 })
 export class EmotionListComponent {
   store = inject(Store);
-
+  
   emotions$: Observable<EmotionsStateModel> = this.store.select(EmotionsState.getState);
+ 
+  deleteEmotion(emotion: Emotion) {
+    this.store.dispatch(new DeleteEmotionAction(emotion));
+  }
 }

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { EmotionsAction } from './emotions.actions';
+import { AddEmotionAction, DeleteEmotionAction } from './emotions.actions';
+import { compose, insertItem, patch, removeItem } from "@ngxs/store/operators"
+
 
 export interface EmotionsStateModel {
   items: Emotion[];
 }
 
 export interface Emotion {
+  id: string;
   name: string;
   date: Date;
 }
@@ -19,20 +22,32 @@ export interface Emotion {
 })
 @Injectable()
 export class EmotionsState {
-
   @Selector()
   static getState(state: EmotionsStateModel) {
     return state;
   }
 
-  @Action(EmotionsAction)
-  add(ctx: StateContext<EmotionsStateModel>, { emotionName }: EmotionsAction) {
-    const stateModel = ctx.getState();
+  @Action(AddEmotionAction)
+  add({setState, getState}: StateContext<EmotionsStateModel>, { emotionName }: AddEmotionAction) {
     const emotion: Emotion = {
+      id: crypto.randomUUID(),
       name: emotionName,
       date: new Date()
     };
-    stateModel.items = [ ...stateModel.items, emotion ];
-    ctx.setState(stateModel);
+    
+    setState(
+      patch({
+        items: insertItem<Emotion>(emotion)
+      })
+    )
+  }
+
+  @Action(DeleteEmotionAction)
+  delete({ setState }: StateContext<EmotionsStateModel>, { emotion }: DeleteEmotionAction) {
+    setState(
+      patch({
+        items: removeItem<Emotion>((e) => e.id === emotion.id),
+      })
+    );
   }
 }

@@ -4,18 +4,23 @@
             <th scope="col">#</th>
             <th scope="col">Data</th>
             <th scope="col">Emocja</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
-        @for (item of (emotions$ | async)?.items; track item; let i = $index) {
+        @for (emotion of (emotions$ | async)?.items; track emotion; let i = $index) {
             <tr>
                 <th scope="row">{{ i }}</th>
-                <td>{{ item?.date | date:'yyyy.MM.dd hh:mm' }}</td>
-                <td>{{ item.name }}</td>
+                <td>{{ emotion?.date | date:'yyyy.MM.dd hh:mm' }}</td>
+                <td>{{ emotion.name }}</td>
+                <td>
+                    {{ emotion.id }}
+                    <button type="button" class="btn-close" (click)="deleteEmotion(emotion)"></button>
+                </td>
             </tr>
         } @empty {
             <tr>
-                <td colspan="3">There are no items.</td>
+                <td colspan="4">There are no items.</td>
             </tr>
         }
     </tbody>
