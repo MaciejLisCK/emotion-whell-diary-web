@@ -15,7 +15,12 @@ import { EmotionsState } from './emotions/emotions.state';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    provideToastr(),
+    provideToastr({
+      newestOnTop: true,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      positionClass: 'toast-top-center',
+    }),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore(
       [ EmotionsState ],
       withNgxsReduxDevtoolsPlugin(),

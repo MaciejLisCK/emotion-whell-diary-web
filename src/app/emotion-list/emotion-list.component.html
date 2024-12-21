@@ -11,7 +11,7 @@
         @for (emotion of (emotions$ | async)?.items; track emotion; let i = $index) {
             <tr>
                 <th scope="row">{{ i }}</th>
-                <td>{{ emotion?.date | date:'yyyy.MM.dd hh:mm' }}</td>
+                <td>{{ emotion?.date | date:'yyyy.MM.dd HH:mm' }}</td>
                 <td>{{ emotion.name }}</td>
                 <td>
                     <button type="button" class="btn-close" (click)="deleteEmotion(emotion)"></button>
