@@ -3,13 +3,18 @@ import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { EmotionsAction } from './emotions.actions';
 
 export interface EmotionsStateModel {
-  items: string[];
+  items: Emotion[];
+}
+
+export interface Emotion {
+  name: string;
+  date: Date;
 }
 
 @State<EmotionsStateModel>({
   name: 'emotions',
   defaults: {
-    items: [ 'test' ]
+    items: [ ]
   }
 })
 @Injectable()
@@ -23,7 +28,11 @@ export class EmotionsState {
   @Action(EmotionsAction)
   add(ctx: StateContext<EmotionsStateModel>, { emotionName }: EmotionsAction) {
     const stateModel = ctx.getState();
-    stateModel.items = [...stateModel.items, emotionName];
+    const emotion: Emotion = {
+      name: emotionName,
+      date: new Date()
+    };
+    stateModel.items = [ ...stateModel.items, emotion ];
     ctx.setState(stateModel);
   }
 }

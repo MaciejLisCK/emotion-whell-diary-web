@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EmotionsState, EmotionsStateModel } from '../emotions/emotions.state';
 import { Store } from '@ngxs/store';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-emotion-list',
-  imports: [ AsyncPipe, JsonPipe ],
+  imports: [ AsyncPipe ],
   templateUrl: './emotion-list.component.html',
   styleUrl: './emotion-list.component.scss'
 })
