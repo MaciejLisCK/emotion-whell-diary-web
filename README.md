@@ -1,1 +1,1 @@
-[Demo](maciejlisck.github.io/emotion-whell-diary-web/) version 19.0.6.
+[Demo](maciejlisck.github.io/emotion-whell-diary-web/)
